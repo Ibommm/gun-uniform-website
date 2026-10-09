@@ -5,43 +5,6 @@ import { SITE_CONFIG, PRODUCTS, ADVANTAGES, ORDER_STEPS, FAQS, generateWAUrl } f
 export default function Home() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col justify-between selection:bg-amber-500 selection:text-slate-950 font-sans">
-      
-      {/* ==================== ADDITION 1: TOP NAVBAR CORPORATE ==================== */}
-      <header className="sticky top-0 z-50 bg-slate-950/80 backdrop-blur-md border-b border-slate-800/80">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-amber-300 flex items-center justify-center font-black text-slate-950 text-xl shadow-lg shadow-amber-500/20">
-              G
-            </div>
-            <div>
-              <span className="font-extrabold text-lg tracking-wider text-white block leading-none">
-                GARDA UNIFORM
-              </span>
-              <span className="text-[10px] tracking-widest text-amber-400 font-bold uppercase">
-                NUSANTARA
-              </span>
-            </div>
-          </div>
-
-          <nav className="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-300">
-            <a href="#tentang" className="hover:text-amber-400 transition-colors">Tentang</a>
-            <a href="#layanan" className="hover:text-amber-400 transition-colors">Layanan</a>
-            <a href="#produk" className="hover:text-amber-400 transition-colors">Katalog</a>
-            <a href="#keunggulan" className="hover:text-amber-400 transition-colors">Keunggulan</a>
-            <a href="#bujp" className="hover:text-amber-400 transition-colors">B2B / BUJP</a>
-            <a href="#faq" className="hover:text-amber-400 transition-colors">FAQ</a>
-          </nav>
-
-          <a
-            href={generateWAUrl("Halo GUN Uniform, saya mau konsultasi pengadaan seragam.")}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-amber-400 hover:bg-amber-500 text-slate-950 font-bold px-5 py-2.5 rounded-lg text-xs uppercase tracking-wider transition-all shadow-md shadow-amber-500/20"
-          >
-            Hubungi Kami
-          </a>
-        </div>
-      </header>
 
       <div>
         {/* 1. HERO SECTION ELEGAN (EXISTING) */}

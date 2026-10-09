@@ -30,6 +30,9 @@ export default function Navbar() {
           <a href="#alur" className="hover:text-amber-400 transition-colors">
             ALUR PESAN
           </a>
+          <a href="#faq" className="hover:text-amber-400 transition-colors">
+            FAQ
+          </a>
         </nav>
 
         {/* Tombol CTA */}
