@@ -4,11 +4,48 @@ import { SITE_CONFIG, PRODUCTS, ADVANTAGES, ORDER_STEPS, FAQS, generateWAUrl } f
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col justify-between selection:bg-amber-500 selection:text-slate-950">
+    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col justify-between selection:bg-amber-500 selection:text-slate-950 font-sans">
+      
+      {/* ==================== ADDITION 1: TOP NAVBAR CORPORATE ==================== */}
+      <header className="sticky top-0 z-50 bg-slate-950/80 backdrop-blur-md border-b border-slate-800/80">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-amber-300 flex items-center justify-center font-black text-slate-950 text-xl shadow-lg shadow-amber-500/20">
+              G
+            </div>
+            <div>
+              <span className="font-extrabold text-lg tracking-wider text-white block leading-none">
+                GARDA UNIFORM
+              </span>
+              <span className="text-[10px] tracking-widest text-amber-400 font-bold uppercase">
+                NUSANTARA
+              </span>
+            </div>
+          </div>
+
+          <nav className="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-300">
+            <a href="#tentang" className="hover:text-amber-400 transition-colors">Tentang</a>
+            <a href="#layanan" className="hover:text-amber-400 transition-colors">Layanan</a>
+            <a href="#produk" className="hover:text-amber-400 transition-colors">Katalog</a>
+            <a href="#keunggulan" className="hover:text-amber-400 transition-colors">Keunggulan</a>
+            <a href="#bujp" className="hover:text-amber-400 transition-colors">B2B / BUJP</a>
+            <a href="#faq" className="hover:text-amber-400 transition-colors">FAQ</a>
+          </nav>
+
+          <a
+            href={generateWAUrl("Halo GUN Uniform, saya mau konsultasi pengadaan seragam.")}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-amber-400 hover:bg-amber-500 text-slate-950 font-bold px-5 py-2.5 rounded-lg text-xs uppercase tracking-wider transition-all shadow-md shadow-amber-500/20"
+          >
+            Hubungi Kami
+          </a>
+        </div>
+      </header>
+
       <div>
-        {/* 1. HERO SECTION ELEGAN */}
+        {/* 1. HERO SECTION ELEGAN (EXISTING) */}
         <section className="relative py-28 md:py-36 overflow-hidden bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-slate-950 to-slate-950 border-b border-amber-500/10">
-          {/* Background Glow Effect */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-amber-500/10 blur-[140px] pointer-events-none rounded-full" />
 
           <div className="max-w-5xl mx-auto px-4 text-center relative z-10">
@@ -47,7 +84,31 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 2. SIAPA GUN UNIFORM? */}
+        {/* ==================== ADDITION 2: STATS & METRICS BAR (CORPORATE PROOF) ==================== */}
+        <section className="bg-slate-900 border-b border-slate-800 py-12 relative z-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-slate-800">
+              <div className="pt-4 md:pt-0">
+                <span className="text-3xl sm:text-4xl font-black text-amber-400 block mb-1">50.000+</span>
+                <span className="text-xs uppercase tracking-widest text-slate-400 font-medium">Stel Seragam Terdistribusi</span>
+              </div>
+              <div className="pt-4 md:pt-0">
+                <span className="text-3xl sm:text-4xl font-black text-amber-400 block mb-1">100+</span>
+                <span className="text-xs uppercase tracking-widest text-slate-400 font-medium">Kemitraan BUJP & Korporasi</span>
+              </div>
+              <div className="pt-4 md:pt-0">
+                <span className="text-3xl sm:text-4xl font-black text-amber-400 block mb-1">100%</span>
+                <span className="text-xs uppercase tracking-widest text-slate-400 font-medium">Standar Perpol Resmi</span>
+              </div>
+              <div className="pt-4 md:pt-0">
+                <span className="text-3xl sm:text-4xl font-black text-amber-400 block mb-1">34</span>
+                <span className="text-xs uppercase tracking-widest text-slate-400 font-medium">Jangkauan Provinsi</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 2. SIAPA GUN UNIFORM? (EXISTING) */}
         <section id="tentang" className="py-24 bg-slate-900/30 border-b border-slate-800/80 relative">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mx-auto text-center">
@@ -64,7 +125,34 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 3. KATALOG PRODUK LENGKAP */}
+        {/* ==================== ADDITION 3: INTEGRATED SCOPE OF SERVICE ==================== */}
+        <section id="layanan" className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-slate-800/60">
+          <div className="text-center mb-14">
+            <span className="text-amber-400 font-bold text-xs tracking-widest uppercase block mb-2">END-TO-END SERVICES</span>
+            <h2 className="text-3xl sm:text-4xl font-black text-white mb-3">LAYANAN PENGADAAN TERINTEGRASI</h2>
+            <p className="text-slate-400 text-sm max-w-2xl mx-auto">Kami mengelola seluruh rantai pasok manufaktur pakaian kerja secara profesional untuk menjamin konsistensi mutunya.</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-slate-900/50 p-8 rounded-2xl border border-slate-800 hover:border-amber-500/30 transition-all">
+              <div className="w-12 h-12 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-xl mb-6">01</div>
+              <h3 className="text-xl font-bold text-white mb-3">Konsultasi & Desain Custom</h3>
+              <p className="text-slate-400 text-sm leading-relaxed">Penyesuaian spesifikasi kain, pola potong, atribut bordir komputer, dan atribut resmi sesuai regulasi instansi.</p>
+            </div>
+            <div className="bg-slate-900/50 p-8 rounded-2xl border border-slate-800 hover:border-amber-500/30 transition-all">
+              <div className="w-12 h-12 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-xl mb-6">02</div>
+              <h3 className="text-xl font-bold text-white mb-3">Produksi Massal Presisi</h3>
+              <p className="text-slate-400 text-sm leading-relaxed">Kapasitas pabrikasi tinggi dengan pengawasan Quality Control (QC) berlapis untuk setiap lembar pakaian.</p>
+            </div>
+            <div className="bg-slate-900/50 p-8 rounded-2xl border border-slate-800 hover:border-amber-500/30 transition-all">
+              <div className="w-12 h-12 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-xl mb-6">03</div>
+              <h3 className="text-xl font-bold text-white mb-3">Manajemen Logistik Nasional</h3>
+              <p className="text-slate-400 text-sm leading-relaxed">Pengemasan terstruktur per-site/wilayah kerja dan armada pengiriman terpercaya ke seluruh area Indonesia.</p>
+            </div>
+          </div>
+        </section>
+
+        {/* 3. KATALOG PRODUK LENGKAP (EXISTING) */}
         <section id="produk" className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center mb-16">
             <span className="text-amber-400 font-bold text-xs tracking-widest uppercase block mb-2">
@@ -132,7 +220,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 4. MENGAPA MEMILIH GUN UNIFORM? */}
+        {/* 4. MENGAPA MEMILIH GUN UNIFORM? (EXISTING) */}
         <section id="keunggulan" className="py-24 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 border-y border-slate-800/80">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
@@ -158,7 +246,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 5. SOLUSI BUJP & SKALA BESAR */}
+        {/* 5. SOLUSI BUJP & SKALA BESAR (EXISTING) */}
         <section id="bujp" className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-amber-950/30 to-slate-900 border border-amber-500/30 p-8 sm:p-12 md:p-16 flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl">
             <div className="relative z-10">
@@ -183,7 +271,22 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 6. ALUR ORDER */}
+        {/* ==================== ADDITION 4: CORPORATE CLIENT TRUST / LOGO BANNER ==================== */}
+        <section className="py-16 bg-slate-950 border-t border-slate-900">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <span className="text-xs uppercase tracking-widest text-slate-500 font-semibold block mb-8">
+              DIPERCAYA OLEH INKOPPOL, BUJP, DAN KORPORASI B2B NASIONAL
+            </span>
+            <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-60 grayscale hover:grayscale-0 transition-all">
+              <div className="text-slate-400 font-black text-xl tracking-wider">BUJP PARTNER A</div>
+              <div className="text-slate-400 font-black text-xl tracking-wider">SECURITY SERVICES</div>
+              <div className="text-slate-400 font-black text-xl tracking-wider">CORPORATE GUARD</div>
+              <div className="text-slate-400 font-black text-xl tracking-wider">NATIONAL SAFETY</div>
+            </div>
+          </div>
+        </section>
+
+        {/* 6. ALUR ORDER (EXISTING) */}
         <section id="alur" className="py-24 bg-slate-900/40 border-t border-slate-800">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
@@ -208,8 +311,8 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 7. FAQ */}
-        <section className="py-24 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* 7. FAQ (EXISTING) */}
+        <section id="faq" className="py-24 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-black text-white mb-3">PERTANYAAN UMUM (FAQ)</h2>
             <p className="text-slate-400 text-sm">Informasi seputar garansi, waktu produksi, dan kustomisasi.</p>
