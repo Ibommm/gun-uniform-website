@@ -64,7 +64,7 @@ export default function Home() {
                 <span className="text-xs uppercase tracking-widest text-slate-400 font-medium">Standar Perpol Resmi</span>
               </div>
               <div className="pt-4 md:pt-0">
-                <span className="text-3xl sm:text-4xl font-black text-amber-400 block mb-1">34</span>
+                <span className="text-3xl sm:text-4xl font-black text-amber-400 block mb-1">38</span>
                 <span className="text-xs uppercase tracking-widest text-slate-400 font-medium">Jangkauan Provinsi</span>
               </div>
             </div>
