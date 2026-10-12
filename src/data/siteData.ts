@@ -5,7 +5,7 @@ export const SITE_CONFIG = {
   fullName: "Garda Uniform Nusantara",
   tagline: "STANDAR NASIONAL SERAGAM SATPAM",
   subTagline: "ELEGANCE & PROTECTION IN EVERY THREAD",
-  whatsappNumber: "62895388150193",
+  whatsappNumber: "6285284371667",
 };
 
 export const PRODUCTS = [
