@@ -68,7 +68,7 @@ export const PRODUCTS: Product[] = [
     desc: "Sepatu PDH kilap tanpa semir dan sepatu PDL taktis dengan outsole anti-slip berdaya tahan tinggi.",
     price: 450000,
     badge: "Premium Quality",
-    image: "/images/sepatu-pdl.jpg",
+    image: "/images/product/sepatu pdh lak.jpeg",
     spec: {
       bahan: "Kulit Sapi Asli / Synthetic Patent Leather",
       ukuran: "39, 40, 41, 42, 43, 44, 45",
