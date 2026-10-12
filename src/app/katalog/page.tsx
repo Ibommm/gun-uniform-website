@@ -25,6 +25,7 @@ import {
 
 import Footer from "@/components/Footer";
 import { PRODUCTS } from "@/data/products";
+import type { Product } from "@/data/products";
 import { generateWAUrl } from "@/data/siteData";
 
 import {
@@ -63,22 +64,6 @@ const MATERIALS = [
 const SIZES = ["S", "M", "L", "XL", "XXL", "Custom"];
 const ITEMS_PER_PAGE = 12;
 
-type ProductItem = {
-  id: string | number;
-  name: string;
-  category?: string;
-  desc?: string;
-  badge?: string;
-  price?: number;
-  image?: string;
-  imageUrl?: string;
-  images?: string[];
-  spec?: {
-    bahan?: string;
-    ukuran?: string;
-  };
-};
-
 type FilterSection = {
   kategori: boolean;
   harga: boolean;
@@ -96,6 +81,7 @@ export default function KatalogPage() {
   const [sort, setSort] = useState("terbaru");
   const [page, setPage] = useState(1);
   const [gridView, setGridView] = useState(true);
+  const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
 
   const [openFilters, setOpenFilters] = useState<FilterSection>({
     kategori: true,
@@ -104,17 +90,15 @@ export default function KatalogPage() {
     ukuran: true,
   });
 
-  const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
+  // Gunakan tipe Product langsung dari products.ts.
+  // Tidak perlu casting ProductItem atau unknown.
+  const products: readonly Product[] = PRODUCTS;
 
-  // Data produk tetap berasal dari satu sumber: products.ts.
-  const products = PRODUCTS as unknown as readonly ProductItem[];
-
-  // Semua proses pencarian dan filter produk.
   const filteredProducts = useMemo(() => {
     let result = products.filter((product) => {
       const category = getCategory(product);
       const name = product.name.toLowerCase();
-      const desc = String(product.desc ?? "").toLowerCase();
+      const desc = product.desc.toLowerCase();
       const query = search.trim().toLowerCase();
       const material = getMaterial(product).toLowerCase();
       const sizes = getSizes(product);
@@ -135,21 +119,20 @@ export default function KatalogPage() {
           material.includes(item.toLowerCase())
         );
 
+      const productSizes = product.spec.ukuran.toLowerCase();
+
       const matchesSize =
         selectedSizes.length === 0 ||
         selectedSizes.some(
           (item) =>
-            sizes.includes(item.toUpperCase()) ||
-            (item === "Custom" &&
-              String(product.spec?.ukuran ?? "")
-                .toLowerCase()
-                .includes("custom"))
+            sizes.some(
+              (size) => size.toLowerCase() === item.toLowerCase()
+            ) ||
+            (item === "Custom" && productSizes.includes("custom"))
         );
 
-      // Produk tanpa harga tetap ditampilkan.
       const matchesPrice =
-        price == null ||
-        (price >= minPrice && price <= maxPrice);
+        price >= minPrice && price <= maxPrice;
 
       return (
         matchesCategory &&
@@ -165,13 +148,9 @@ export default function KatalogPage() {
         a.name.localeCompare(b.name, "id")
       );
     } else if (sort === "termurah") {
-      result = [...result].sort(
-        (a, b) => (a.price ?? Infinity) - (b.price ?? Infinity)
-      );
+      result = [...result].sort((a, b) => a.price - b.price);
     } else if (sort === "termahal") {
-      result = [...result].sort(
-        (a, b) => (b.price ?? -Infinity) - (a.price ?? -Infinity)
-      );
+      result = [...result].sort((a, b) => b.price - a.price);
     }
 
     return result;
@@ -208,6 +187,7 @@ export default function KatalogPage() {
         ? values.filter((item) => item !== value)
         : [...values, value]
     );
+
     setPage(1);
   }
 
@@ -256,6 +236,7 @@ export default function KatalogPage() {
         className="flex w-full items-center justify-between py-1 text-left text-sm font-bold text-white"
       >
         {title}
+
         {openFilters[name] ? (
           <ChevronUp size={16} />
         ) : (
@@ -282,6 +263,7 @@ export default function KatalogPage() {
           onChange={onChange}
           className="h-4 w-4 accent-amber-400"
         />
+
         <span>{label}</span>
       </label>
     );
@@ -326,6 +308,7 @@ export default function KatalogPage() {
                 <label className="mb-1 block text-xs text-slate-400">
                   Harga minimum
                 </label>
+
                 <input
                   type="number"
                   min={0}
@@ -342,6 +325,7 @@ export default function KatalogPage() {
                 <label className="mb-1 block text-xs text-slate-400">
                   Harga maksimum
                 </label>
+
                 <input
                   type="number"
                   min={0}
@@ -526,6 +510,7 @@ export default function KatalogPage() {
                       size={18}
                       className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500"
                     />
+
                     <input
                       type="search"
                       value={search}
@@ -647,22 +632,20 @@ export default function KatalogPage() {
 
                           <div className="mt-3 border-t border-slate-800 pt-3">
                             <p className="line-clamp-2 text-[10px] text-slate-500 sm:text-xs">
-                              Bahan: {product.spec?.bahan || "-"}
+                              Bahan: {product.spec.bahan || "-"}
                             </p>
 
                             <p className="mt-1 line-clamp-1 text-[10px] text-slate-500 sm:text-xs">
-                              Ukuran: {product.spec?.ukuran || "-"}
+                              Ukuran: {product.spec.ukuran || "-"}
                             </p>
                           </div>
 
                           <div className="mt-auto pt-4">
                             <p className="mb-3 text-sm font-black text-white sm:text-base">
-                              {price ?? "Hubungi Kami"}
-                              {price && (
-                                <span className="ml-1 text-[10px] font-normal text-slate-400">
-                                  / sesuai satuan
-                                </span>
-                              )}
+                              {price}
+                              <span className="ml-1 text-[10px] font-normal text-slate-400">
+                                / sesuai satuan
+                              </span>
                             </p>
 
                             <a
