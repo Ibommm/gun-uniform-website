@@ -38,7 +38,7 @@ export default function Home() {
                 MINTA PENAWARAN SEKARANG
               </a>
               <a
-                href="#produk"
+                href="/katalog"
                 className="w-full sm:w-auto bg-slate-900/80 hover:bg-slate-800 text-slate-200 font-bold px-9 py-4 rounded-xl border border-slate-700/80 transition-all text-base backdrop-blur-sm"
               >
                 LIHAT KATALOG PRODUK
