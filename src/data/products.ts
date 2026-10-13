@@ -121,7 +121,7 @@ export const PRODUCTS: Product[] = [
     desc: "Sepatu PDH berbahan upper synthetic dengan tampilan Black Doff, cocok untuk penggunaan area indoor maupun outdoor.",
     price: 140000,
     badge: "Synthetic",
-    image: "/images/product/pdh doff grade b.jpeg",
+    image: "/images/product/pdh diklat sintetis.jpeg",
     spec: {
       bahan: "Upper Synthetic, Finishing Black Doff (Matte)",
       ukuran: "39, 40, 41, 42, 43, 44, 45",
