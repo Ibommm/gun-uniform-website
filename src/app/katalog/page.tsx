@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useMemo, useState } from "react";
@@ -28,14 +27,6 @@ import { PRODUCTS } from "@/data/products";
 import type { Product } from "@/data/products";
 import { generateWAUrl } from "@/data/siteData";
 
-import {
-  getCategory,
-  formatRupiah,
-  getMaterial,
-  getSizes,
-  getProductImage,
-} from "@/data/catalogUtils";
-
 const CATEGORIES = [
   { label: "Semua", value: "Semua", icon: Grid2X2 },
   { label: "Seragam Satpam", value: "Seragam Satpam", icon: Shirt },
@@ -55,13 +46,17 @@ const CATEGORIES = [
 
 const MATERIALS = [
   "American Drill",
-  "Tactical Ripstop",
-  "Polyester",
-  "Kulit Asli",
-  "Canvas",
+  "Japan Drill",
+  "Ripstop",
+  "Kulit Sapi Asli",
+  "Synthetic",
+  "Taslan",
+  "Nylon",
+  "Kulit Sintetis",
+  "Kain",
 ];
 
-const SIZES = ["S", "M", "L", "XL", "XXL", "Custom"];
+const SIZES = ["S", "M", "L", "XL", "XXL", "XXXL", "Custom"];
 const ITEMS_PER_PAGE = 12;
 
 type FilterSection = {
@@ -70,6 +65,14 @@ type FilterSection = {
   bahan: boolean;
   ukuran: boolean;
 };
+
+function formatRupiah(value: number) {
+  return new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+    maximumFractionDigits: 0,
+  }).format(value);
+}
 
 export default function KatalogPage() {
   const [activeCategory, setActiveCategory] = useState("Semua");
@@ -90,28 +93,37 @@ export default function KatalogPage() {
     ukuran: true,
   });
 
-  // Gunakan tipe Product langsung dari products.ts.
-  // Tidak perlu casting ProductItem atau unknown.
+  // Menggunakan struktur Product langsung dari products.ts.
   const products: readonly Product[] = PRODUCTS;
 
   const filteredProducts = useMemo(() => {
     let result = products.filter((product) => {
-      const category = getCategory(product);
+      const category = product.category;
       const name = product.name.toLowerCase();
       const desc = product.desc.toLowerCase();
       const query = search.trim().toLowerCase();
-      const material = getMaterial(product).toLowerCase();
-      const sizes = getSizes(product);
+      const material = product.spec.bahan.toLowerCase();
+      const sizes = product.spec.ukuran.toLowerCase();
       const price = product.price;
+
+      const searchableText = [
+        product.name,
+        product.desc,
+        product.category,
+        product.spec.bahan,
+        product.spec.ukuran,
+        product.spec.fitur,
+        product.spec.bordir,
+        product.spec.outsole ?? "",
+        product.spec.insole ?? "",
+      ]
+        .join(" ")
+        .toLowerCase();
 
       const matchesCategory =
         activeCategory === "Semua" || category === activeCategory;
 
-      const matchesSearch =
-        !query ||
-        name.includes(query) ||
-        desc.includes(query) ||
-        category.toLowerCase().includes(query);
+      const matchesSearch = !query || searchableText.includes(query);
 
       const matchesMaterial =
         selectedMaterials.length === 0 ||
@@ -119,20 +131,25 @@ export default function KatalogPage() {
           material.includes(item.toLowerCase())
         );
 
-      const productSizes = product.spec.ukuran.toLowerCase();
-
       const matchesSize =
         selectedSizes.length === 0 ||
-        selectedSizes.some(
-          (item) =>
-            sizes.some(
-              (size) => size.toLowerCase() === item.toLowerCase()
-            ) ||
-            (item === "Custom" && productSizes.includes("custom"))
-        );
+        selectedSizes.some((item) => {
+          if (item === "Custom") {
+            return sizes.includes("custom") ||
+              sizes.includes("adjustable") ||
+              sizes.includes("tailored");
+          }
 
-      const matchesPrice =
-        price >= minPrice && price <= maxPrice;
+          const availableSizes = sizes
+            .split(",")
+            .map((size) => size.trim());
+
+          return availableSizes.some(
+            (size) => size.toLowerCase() === item.toLowerCase()
+          );
+        });
+
+      const matchesPrice = price >= minPrice && price <= maxPrice;
 
       return (
         matchesCategory &&
@@ -143,7 +160,11 @@ export default function KatalogPage() {
       );
     });
 
-    if (sort === "nama") {
+    if (sort === "terbaru") {
+      result = [...result].sort(
+        (a, b) => Number(a.id) - Number(b.id)
+      );
+    } else if (sort === "nama") {
       result = [...result].sort((a, b) =>
         a.name.localeCompare(b.name, "id")
       );
@@ -218,7 +239,7 @@ export default function KatalogPage() {
     if (category === "Semua") return products.length;
 
     return products.filter(
-      (product) => getCategory(product) === category
+      (product) => product.category === category
     ).length;
   }
 
@@ -272,6 +293,7 @@ export default function KatalogPage() {
   function SidebarFilters() {
     return (
       <div className="space-y-5 rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
+        {/* Filter kategori */}
         <div>
           <FilterHeading title="Kategori" name="kategori" />
 
@@ -299,6 +321,7 @@ export default function KatalogPage() {
           )}
         </div>
 
+        {/* Filter harga */}
         <div className="border-t border-slate-800 pt-4">
           <FilterHeading title="Harga" name="harga" />
 
@@ -346,6 +369,7 @@ export default function KatalogPage() {
           )}
         </div>
 
+        {/* Filter bahan */}
         <div className="border-t border-slate-800 pt-4">
           <FilterHeading title="Bahan" name="bahan" />
 
@@ -369,6 +393,7 @@ export default function KatalogPage() {
           )}
         </div>
 
+        {/* Filter ukuran */}
         <div className="border-t border-slate-800 pt-4">
           <FilterHeading title="Ukuran" name="ukuran" />
 
@@ -392,6 +417,7 @@ export default function KatalogPage() {
           )}
         </div>
 
+        {/* Reset filter */}
         <button
           type="button"
           onClick={resetFilters}
@@ -450,11 +476,10 @@ export default function KatalogPage() {
                   key={category.value}
                   type="button"
                   onClick={() => selectCategory(category.value)}
-                  className={`flex shrink-0 items-center justify-center gap-2 rounded-xl border px-4 py-3 text-xs font-bold transition-all sm:px-5 sm:text-sm ${
-                    active
+                  className={`flex shrink-0 items-center justify-center gap-2 rounded-xl border px-4 py-3 text-xs font-bold transition-all sm:px-5 sm:text-sm ${active
                       ? "border-amber-400 bg-amber-400 text-slate-950 shadow-lg shadow-amber-500/10"
                       : "border-slate-700 bg-slate-900/70 text-slate-300 hover:border-amber-500/50 hover:text-amber-400"
-                  }`}
+                    }`}
                 >
                   <Icon size={18} />
                   {category.label}
@@ -487,7 +512,7 @@ export default function KatalogPage() {
             </aside>
 
             <div className="min-w-0">
-              {/* Pencarian dan sorting */}
+              {/* Pencarian dan pengurutan */}
               <div className="mb-5 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <p className="hidden text-sm text-slate-400 sm:block">
                   Menampilkan{" "}
@@ -495,7 +520,7 @@ export default function KatalogPage() {
                     {filteredProducts.length === 0
                       ? 0
                       : (currentPage - 1) * ITEMS_PER_PAGE + 1}
-                    {"–"}
+                    –
                     {Math.min(
                       currentPage * ITEMS_PER_PAGE,
                       filteredProducts.length
@@ -542,11 +567,10 @@ export default function KatalogPage() {
                     type="button"
                     onClick={() => setGridView(true)}
                     aria-label="Tampilan grid"
-                    className={`hidden rounded-xl border p-3 sm:block ${
-                      gridView
+                    className={`hidden rounded-xl border p-3 sm:block ${gridView
                         ? "border-amber-400 bg-amber-400/10 text-amber-400"
                         : "border-slate-700 text-slate-400"
-                    }`}
+                      }`}
                   >
                     <Grid2X2 size={18} />
                   </button>
@@ -555,11 +579,10 @@ export default function KatalogPage() {
                     type="button"
                     onClick={() => setGridView(false)}
                     aria-label="Tampilan daftar"
-                    className={`hidden rounded-xl border p-3 sm:block ${
-                      !gridView
+                    className={`hidden rounded-xl border p-3 sm:block ${!gridView
                         ? "border-amber-400 bg-amber-400/10 text-amber-400"
                         : "border-slate-700 text-slate-400"
-                    }`}
+                      }`}
                   >
                     <List size={18} />
                   </button>
@@ -576,23 +599,21 @@ export default function KatalogPage() {
                   }
                 >
                   {visibleProducts.map((product) => {
-                    const category = getCategory(product);
-                    const image = getProductImage(product);
+                    const category = product.category;
+                    const image = product.image;
                     const price = formatRupiah(product.price);
 
                     return (
                       <article
                         key={product.id}
-                        className={`group flex overflow-hidden rounded-2xl border border-slate-800 bg-gradient-to-b from-slate-900 to-slate-950 transition-all duration-300 hover:-translate-y-1 hover:border-amber-500/50 hover:shadow-xl hover:shadow-amber-500/5 ${
-                          gridView ? "flex-col" : "flex-row"
-                        }`}
+                        className={`group flex overflow-hidden rounded-2xl border border-slate-800 bg-gradient-to-b from-slate-900 to-slate-950 transition-all duration-300 hover:-translate-y-1 hover:border-amber-500/50 hover:shadow-xl hover:shadow-amber-500/5 ${gridView ? "flex-col" : "flex-row"
+                          }`}
                       >
                         <div
-                          className={`relative overflow-hidden bg-slate-900 ${
-                            gridView
+                          className={`relative overflow-hidden bg-slate-900 ${gridView
                               ? "aspect-square w-full"
                               : "h-36 w-32 shrink-0 sm:h-48 sm:w-48"
-                          }`}
+                            }`}
                         >
                           {image ? (
                             <img
@@ -635,9 +656,21 @@ export default function KatalogPage() {
                               Bahan: {product.spec.bahan || "-"}
                             </p>
 
-                            <p className="mt-1 line-clamp-1 text-[10px] text-slate-500 sm:text-xs">
+                            <p className="mt-1 line-clamp-2 text-[10px] text-slate-500 sm:text-xs">
                               Ukuran: {product.spec.ukuran || "-"}
                             </p>
+
+                            {product.spec.outsole && (
+                              <p className="mt-1 line-clamp-2 text-[10px] text-slate-500 sm:text-xs">
+                                Outsole: {product.spec.outsole}
+                              </p>
+                            )}
+
+                            {product.spec.insole && (
+                              <p className="mt-1 line-clamp-2 text-[10px] text-slate-500 sm:text-xs">
+                                Insole: {product.spec.insole}
+                              </p>
+                            )}
                           </div>
 
                           <div className="mt-auto pt-4">
@@ -650,7 +683,7 @@ export default function KatalogPage() {
 
                             <a
                               href={generateWAUrl(
-                                `Halo GUN Uniform, saya tertarik dengan produk ${product.name}. Mohon informasi harga, spesifikasi, pilihan ukuran, dan ketersediaan produk.`
+                                `Halo GUN Uniform, saya tertarik dengan produk ${product.name}. Harga yang tertera ${price}. Mohon informasi lebih lanjut mengenai spesifikasi, ukuran, dan ketersediaan produk.`
                               )}
                               target="_blank"
                               rel="noopener noreferrer"
@@ -734,11 +767,10 @@ export default function KatalogPage() {
                               behavior: "smooth",
                             });
                           }}
-                          className={`min-w-10 rounded-lg border px-3 py-2.5 text-sm font-bold transition-colors ${
-                            currentPage === number
+                          className={`min-w-10 rounded-lg border px-3 py-2.5 text-sm font-bold transition-colors ${currentPage === number
                               ? "border-amber-400 bg-amber-400 text-slate-950"
                               : "border-slate-800 bg-slate-900 text-slate-300 hover:border-amber-400"
-                          }`}
+                            }`}
                         >
                           {number}
                         </button>

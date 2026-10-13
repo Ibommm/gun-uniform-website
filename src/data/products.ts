@@ -8,6 +8,8 @@ export type Product = {
   badge: string;
   image: string;
   spec: {
+    outsole?: string;
+    insole?: string;
     bahan: string;
     ukuran: string;
     bordir: string;
@@ -65,30 +67,34 @@ export const PRODUCTS: Product[] = [
     id: 4,
     name: "Sepatu PDH Upper Kulit Lack, Slip On, Outsole Rubber, Zipper/Tali.",
     category: "Sepatu",
-    desc: "Black Glossy, Cocok Untuk Area Indoor.",
+    desc: "Tampilan Black Glossy (mengkilap tanpa perlu disemir), cocok dan elegan untuk area indoor maupun kegiatan dinas harian.",
     price: 285000,
     badge: "Premium Quality",
     image: "/images/product/sepatu pdh lak.jpeg",
     spec: {
-      bahan: "Kulit Sapi Asli / Synthetic Patent Leather",
+      bahan: "Kulit Sapi Asli Finishing Lak (Patent Leather)",
       ukuran: "39, 40, 41, 42, 43, 44, 45",
+      outsole: "Karet (Rubber) Anti-Selip & Jahit Melingkar",
+      insole: "Busa Empuk Lapis Merry Mesh (Nyaman & Adem)",
+      fitur: "Tali & Resleting Samping (Praktis), Bebas Semir (Cukup Dilap)",
       bordir: "Logo Emboss Custom",
-      fitur: "Sol Anti Selip, Nyaman Dipakai Seharian",
     },
   },
   {
     id: 5,
     name: "Sepatu PDH Upper Kulit, Slip On, Outsole Rubber, Zipper/Tali, Grade A.",
     category: "Sepatu",
-    desc: "Black Doff, Cocok Untuk Area Indoor dan Outdoor.",
+    desc: "Tampilan Black Doff/Matte yang dapat disemir, kuat dan tangguh untuk penggunaan area indoor maupun outdoor.",
     price: 240000,
     badge: "Premium Quality",
     image: "/images/product/pdh doff.jpeg",
     spec: {
-      bahan: "Kulit Sapi Asli / Synthetic Patent Leather",
+      bahan: "Kulit Sapi Asli Grade A Finishing Doff (Matte)",
       ukuran: "39, 40, 41, 42, 43, 44, 45",
+      outsole: "Karet (Rubber) Anti-Selip & Jahit Melingkar",
+      insole: "Busa Empuk Lapis Merry Mesh",
+      fitur: "Bisa Disemir, Resleting Samping (Praktis), Awet Lapangan",
       bordir: "Logo Emboss Custom",
-      fitur: "Sol Anti Selip, Nyaman Dipakai Seharian",
     },
   },
   {
