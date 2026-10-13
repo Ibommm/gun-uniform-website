@@ -25,7 +25,7 @@ export default function Home() {
             </h1>
 
             <p className="text-base sm:text-lg md:text-xl text-slate-400 max-w-3xl mx-auto mb-12 leading-relaxed">
-              Membangun kewibawaan dan identitas institusi melalui seragam berstandar nasional. Solusi pengadaan terpercaya untuk BUJP & Perusahaan di seluruh penjuru Nusantara.
+              Membangun kewibawaan dan identitas perusahaan melalui seragam berstandar nasional. Solusi pengadaan terpercaya untuk BUJP & Perusahaan di seluruh penjuru Nusantara.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-5">
