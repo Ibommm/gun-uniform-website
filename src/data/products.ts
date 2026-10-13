@@ -163,7 +163,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 10,
-    name: "Sepatu PDL Diklat Kulit Jeruk",
+    name: "Sepatu PDL Upper Kulit Jeruk (Recycle), Outsole Sintetis/VPC.",
     category: "Sepatu",
     desc: "Sepatu PDL Diklat dengan bahan kulit jeruk recycle dan outsole sintetis/VPC.",
     price: 125000,
