@@ -11,7 +11,7 @@ export default function Logo({ showText = true }: LogoProps) {
       {/* Container Gambar Logo - Diperbesar jadi w-14 h-14 & diberi efek glow */}
       <div className="relative w-12 h-12 md:w-14 md:h-14 flex items-center justify-center shrink-0 filter drop-shadow-[0_0_8px_rgba(245,158,11,0.35)]">
         <Image
-          src="/images/logo/Logo_Gun.png" // Sesuaikan dengan path logo kamu
+          src="/images/logo/logo gun.png" // Sesuaikan dengan path logo kamu
           alt="GUN Uniform Logo"
           fill
           sizes="(max-width: 768px) 48px, 56px"
