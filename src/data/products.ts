@@ -63,10 +63,10 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 4,
-    name: "Sepatu PDH & PDL Taktis",
+    name: "PDH Upper Kulit Lack, Slip On, Outsole Rubber, Zipper/Tali.",
     category: "Sepatu",
-    desc: "Sepatu PDH kilap tanpa semir dan sepatu PDL taktis dengan outsole anti-slip berdaya tahan tinggi.",
-    price: 450000,
+    desc: "Black Glossy, Cocok Untuk Area Indoor.",
+    price: 285.000,
     badge: "Premium Quality",
     image: "/images/product/sepatu pdh lak.jpeg",
     spec: {
@@ -78,10 +78,10 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 5,
-    name: "Sepatu PDH & PDL Taktis",
+    name: "PDH Upper Kulit, Slip On, Outsole Rubber, Zipper/Tali, Grade A.",
     category: "Sepatu",
-    desc: "Sepatu PDH kilap tanpa semir dan sepatu PDL taktis dengan outsole anti-slip berdaya tahan tinggi.",
-    price: 450000,
+    desc: "Black Doff, Cocok Untuk Area Indoor dan Outdoor.",
+    price: 240.000,
     badge: "Premium Quality",
     image: "/images/product/pdh doff.jpeg",
     spec: {
