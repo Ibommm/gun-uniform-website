@@ -66,7 +66,7 @@ export const PRODUCTS: Product[] = [
     name: "Sepatu PDH Upper Kulit Lack, Slip On, Outsole Rubber, Zipper/Tali.",
     category: "Sepatu",
     desc: "Black Glossy, Cocok Untuk Area Indoor.",
-    price: 285.000,
+    price: 285000,
     badge: "Premium Quality",
     image: "/images/product/sepatu pdh lak.jpeg",
     spec: {
@@ -81,7 +81,7 @@ export const PRODUCTS: Product[] = [
     name: "Sepatu PDH Upper Kulit, Slip On, Outsole Rubber, Zipper/Tali, Grade A.",
     category: "Sepatu",
     desc: "Black Doff, Cocok Untuk Area Indoor dan Outdoor.",
-    price: 240.000,
+    price: 240000,
     badge: "Premium Quality",
     image: "/images/product/pdh doff.jpeg",
     spec: {
